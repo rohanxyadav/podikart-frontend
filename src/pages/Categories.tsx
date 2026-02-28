@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import API_BASE_URL from "@/lib/api";
 
 export default function CategoriesPage() {
   const { data: categories = [], isLoading: isLoadingCategories } = useQuery({
     queryKey: ["categories"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/api/categories");
+      const res = await fetch(`${API_BASE_URL}/api/categories`);
       if (!res.ok) throw new Error("Failed to fetch");
       return res.json();
     }
@@ -14,7 +15,7 @@ export default function CategoriesPage() {
   const { data: allProducts = [] } = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/api/products");
+      const res = await fetch(`${API_BASE_URL}/api/products`);
       if (!res.ok) throw new Error("Failed to fetch");
       return res.json();
     }

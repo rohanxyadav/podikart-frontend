@@ -1,5 +1,6 @@
 import { Package, ShoppingCart, Users, TrendingUp } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
+import API_BASE_URL from "@/lib/api";
 
 export default function AdminDashboard() {
   const { data: statsData, isLoading } = useQuery({
@@ -7,7 +8,7 @@ export default function AdminDashboard() {
     queryFn: async () => {
       const userStr = localStorage.getItem('user');
       const token = userStr ? JSON.parse(userStr).token : '';
-      const res = await fetch("http://localhost:5000/api/admin/stats", {
+      const res = await fetch(`${API_BASE_URL}/api/admin/stats`, {
         headers: { "Authorization": `Bearer ${token}` }
       });
       if (!res.ok) throw new Error("Failed to fetch stats");

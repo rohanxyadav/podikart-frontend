@@ -3,12 +3,13 @@ import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { Image } from "@imagekit/react";
+import API_BASE_URL from "@/lib/api";
 
 export default function AdminProducts() {
   const { data: products = [], isLoading } = useQuery({
     queryKey: ["admin-products"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/api/products");
+      const res = await fetch(`${API_BASE_URL}/api/products`);
       if (!res.ok) throw new Error("Failed to fetch");
       return res.json();
     }

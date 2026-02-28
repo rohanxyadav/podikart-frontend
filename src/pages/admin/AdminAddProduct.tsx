@@ -7,6 +7,7 @@ import { useToast } from "@/hooks/use-toast";
 import { ImagePlus, Package } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import API_BASE_URL from "@/lib/api";
 
 export default function AdminAddProduct() {
     const navigate = useNavigate();
@@ -16,7 +17,7 @@ export default function AdminAddProduct() {
     const { data: categories = [] } = useQuery({
         queryKey: ["admin-categories"],
         queryFn: async () => {
-            const res = await fetch("http://localhost:5000/api/categories");
+            const res = await fetch(`${API_BASE_URL}/api/categories`);
             if (!res.ok) throw new Error("Failed to fetch");
             return res.json();
         }
@@ -71,7 +72,7 @@ export default function AdminAddProduct() {
             const userStr = localStorage.getItem('user');
             const token = userStr ? JSON.parse(userStr).token : '';
 
-            const res = await fetch('http://localhost:5000/api/products', {
+            const res = await fetch(`${API_BASE_URL}/api/products`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`

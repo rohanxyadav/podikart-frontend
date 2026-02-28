@@ -7,6 +7,7 @@ import { Image } from "@imagekit/react";
 import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/hooks/use-toast";
 import { useQuery } from "@tanstack/react-query";
+import API_BASE_URL from "@/lib/api";
 
 export default function ProductDetail() {
   const { slug } = useParams();
@@ -14,7 +15,7 @@ export default function ProductDetail() {
   const { data: product, isLoading } = useQuery({
     queryKey: ["product", slug],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/api/products/${slug}`);
+      const res = await fetch(`${API_BASE_URL}/api/products/${slug}`);
       if (!res.ok) throw new Error("Product not found");
       return res.json();
     },

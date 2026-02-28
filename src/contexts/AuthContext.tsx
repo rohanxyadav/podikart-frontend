@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import API_BASE_URL from "@/lib/api";
 
 export interface User {
   name: string;
@@ -29,7 +30,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = async (email: string, password: string) => {
     try {
-      const res = await fetch('http://localhost:5000/api/auth/login', {
+      const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -50,7 +51,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signup = async (name: string, email: string, phone: string, password: string) => {
     try {
-      const res = await fetch('http://localhost:5000/api/auth/register', {
+      const res = await fetch(`${API_BASE_URL}/api/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, phone, password }),

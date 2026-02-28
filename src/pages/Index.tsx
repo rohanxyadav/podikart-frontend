@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import ProductCard from "@/components/ProductCard";
 import { useQuery } from "@tanstack/react-query";
+import API_BASE_URL from "@/lib/api";
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
@@ -36,7 +37,7 @@ export default function Index() {
   const { data: featuredProducts = [], isLoading } = useQuery({
     queryKey: ["featured-products"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/api/products?featured=true");
+      const res = await fetch(`${API_BASE_URL}/api/products?featured=true`);
       if (!res.ok) throw new Error("Network response was not ok");
       return res.json();
     }

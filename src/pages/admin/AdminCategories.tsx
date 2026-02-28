@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast";
+import API_BASE_URL from "@/lib/api";
 
 export default function AdminCategories() {
   const [name, setName] = useState("");
@@ -15,7 +16,7 @@ export default function AdminCategories() {
   const { data: categories = [], isLoading } = useQuery({
     queryKey: ["categories"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/api/categories");
+      const res = await fetch(`${API_BASE_URL}/api/categories`);
       if (!res.ok) throw new Error("Failed to fetch");
       return res.json();
     }
@@ -25,7 +26,7 @@ export default function AdminCategories() {
     mutationFn: async (newCategory: any) => {
       const userStr = localStorage.getItem('user');
       const token = userStr ? JSON.parse(userStr).token : '';
-      const res = await fetch("http://localhost:5000/api/categories", {
+      const res = await fetch(`${API_BASE_URL}/api/categories`, {
         method: "POST",
         headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
         body: JSON.stringify(newCategory),
@@ -52,7 +53,7 @@ export default function AdminCategories() {
     mutationFn: async (id: string) => {
       const userStr = localStorage.getItem('user');
       const token = userStr ? JSON.parse(userStr).token : '';
-      const res = await fetch(`http://localhost:5000/api/categories/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/categories/${id}`, {
         method: "DELETE",
         headers: { "Authorization": `Bearer ${token}` },
       });
